@@ -21,7 +21,7 @@ $(function() {
         it('has a URL and is not empty', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
-                expect(feed.url).not.toBeNull();
+                expect(feed.url.length).toBeGreaterThan(0);
             });
         });
 
@@ -29,7 +29,7 @@ $(function() {
         it('has a name and is not empty', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
-                expect(feed.name).not.toBeNull();
+                expect(feed.name.length).toBeGreaterThan(0);
             });
         });
     });
@@ -39,7 +39,7 @@ $(function() {
      */
     describe('The Menu', function() {
         it('is hidden by default', function() {
-            expect(document.querySelector('body').classList).toContain('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
         it('toggles visibility on click', function() {
@@ -56,9 +56,7 @@ $(function() {
      */
     describe('Initial Entries', function() {
         beforeEach(function(done) {
-           loadFeed(0, function() {
-               done();
-           });
+           loadFeed(0, done);
         }); 
 
         it('.feed has at least one .entry after loadFeed()', function(done) {
