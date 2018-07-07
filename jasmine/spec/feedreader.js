@@ -18,7 +18,7 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-        it('has a URL and is not empty', function() {
+        it('has a URL object that is not empty', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).toBeGreaterThan(0);
@@ -26,7 +26,7 @@ $(function() {
         });
 
 
-        it('has a name and is not empty', function() {
+        it('has a name object that is not empty', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name.length).toBeGreaterThan(0);
@@ -59,9 +59,8 @@ $(function() {
            loadFeed(0, done);
         }); 
 
-        it('.feed has at least one .entry after loadFeed()', function(done) {
-            expect($('.feed .entry-link').length).toBeGreaterThan(0);
-            done();
+        it('.feed has at least one .entry after loadFeed()', function() {
+            expect($('.feed .entry').length).toBeGreaterThan(0);
         });
     });
 
@@ -73,22 +72,21 @@ $(function() {
         let newFeed;
 
         beforeEach(function(done) {
+            // Load a feet and store it in originalFeed...
             loadFeed(0, function() {
-                // Store first feed in originalFeed
                 originalFeed = $('.feed').html();
-                done();
-                // Load a new feed and store it in newFeed
+                
+                // ...then load a new feed and store it in newFeed
                 loadFeed(1, function() {
                     newFeed = $('.feed').html();
                     done();
                 });
             });
-        }); 
+        });
         
-        it('has new contents after loadFeed', function(done) {
+        it('has new contents after loadFeed', function() {
             // Compare originalFeed and newFeed
             expect(originalFeed).not.toEqual(newFeed);
-            done();
         });
     });
 }());
