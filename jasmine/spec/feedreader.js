@@ -9,6 +9,9 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
+    /*
+     * Ensure the feeds are present and valid.
+     */
     describe('RSS Feeds', function() {
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
@@ -31,6 +34,9 @@ $(function() {
         });
     });
 
+    /*
+     * Ensure the menu responds to clicks.
+     */
     describe('The Menu', function() {
         it('is hidden by default', function() {
             expect(document.querySelector('body').classList).toContain('menu-hidden');
@@ -39,38 +45,43 @@ $(function() {
         it('toggles visibility on click', function() {
             menuIcon = $('.menu-icon-link');
             menuIcon.click();
-            expect(document.querySelector('body').classList).not.toContain('menu-hidden');
+            expect($('body').hasClass("menu-hidden")).not.toBe(true);
             menuIcon.click();
-            expect(document.querySelector('body').classList).toContain('menu-hidden');
+            expect($('body').hasClass("menu-hidden")).toBe(true);
         });
     });
+
+    /*
+     * Ensure entries exist.
+     */
     describe('Initial Entries', function() {
         beforeEach(function(done) {
-           container = $('.feed');
            loadFeed(0, function() {
                done();
            });
         }); 
 
         it('.feed has at least one .entry after loadFeed()', function(done) {
-            expect(container.find('.entry-link').length).toBeGreaterThan(0);
+            expect($('.feed .entry-link').length).toBeGreaterThan(0);
             done();
         });
     });
 
+    /*
+     * Ensure that different feeds return different content.
+     */
     describe('New Feed Selection', function() {
         let originalFeed;
         let newFeed;
 
         beforeEach(function(done) {
-            let container = $('.feed');
             loadFeed(0, function() {
                 // Store first feed in originalFeed
-                originalFeed = container.contents();
+                originalFeed = $('.feed').html();
                 done();
                 // Load a new feed and store it in newFeed
                 loadFeed(1, function() {
-                    newFeed = container.contents();
+                    newFeed = $('.feed').html();
                     done();
                 });
             });
