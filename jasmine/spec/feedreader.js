@@ -19,17 +19,17 @@ $(function() {
         });
 
         it('has a URL and is not empty', function() {
-            allFeeds.forEach(function(value) {
-                expect(value.url).toBeDefined();
-                expect(value.url).not.toBeNull();
+            allFeeds.forEach(function(feed) {
+                expect(feed.url).toBeDefined();
+                expect(feed.url).not.toBeNull();
             });
         });
 
 
         it('has a name and is not empty', function() {
-            allFeeds.forEach(function(value) {
-                expect(value.name).toBeDefined();
-                expect(value.name).not.toBeNull();
+            allFeeds.forEach(function(feed) {
+                expect(feed.name).toBeDefined();
+                expect(feed.name).not.toBeNull();
             });
         });
     });
